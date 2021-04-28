@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { IFolder } from '~/types/IFolder';
 import { IState } from './types/IState'
 
 export const state = (): IState => ({
@@ -8,6 +9,12 @@ export const state = (): IState => ({
     folders: [],
     activeFolderProjects: []
 })
+
+export const getters = {
+    projectNames: (state: IState) => {
+        return state.folders.map((folder: IFolder) => folder?.attributes?.name);
+    }
+};
 
 export const mutations = {
     setToken(state: IState, token: string) {
@@ -19,7 +26,7 @@ export const mutations = {
     setSingleProjects(state: IState, singleProjects: Object[]) {
         state.singleProjects = singleProjects
     },
-    setFolders(state: IState, folders: Object[]) {
+    setFolders(state: IState, folders: IFolder[]) {
         state.folders = folders
     },
     setActiveFolderProjects(state: IState, projects: Object[]) {
@@ -57,7 +64,7 @@ export const actions = {
                 'Authorization': `Bearer ${state.token}`
             }
         })
-        const singleProjects = response?.data
+        const singleProjects = response?.data?.data
         commit('setSingleProjects', singleProjects)
     },
     async getFolders({ state, commit }: { state: IState, commit }) {
@@ -67,7 +74,7 @@ export const actions = {
                 'Authorization': `Bearer ${state.token}`
             }
         })
-        const folders = response?.data
+        const folders: IFolder[] = response?.data?.data
         commit('setFolders', folders)
     },
     async getFolderProjects({ state, commit }: { state: IState, commit }, folderId: string) {
@@ -95,4 +102,10 @@ export const actions = {
             dispatch('getFolders');
         }
     },
+    async loadApplication({ dispatch }) {
+        await dispatch('getToken');
+        await dispatch('getUser');
+        await dispatch('getFolders');
+        await dispatch('getSingleProjects');
+    }
 }
