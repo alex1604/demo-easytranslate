@@ -11,42 +11,34 @@
       </template>
       <v-card>
         <v-card-title>
-          <span class="headline">Create new project</span>
+          <span class="headline">Create new folder</span>
         </v-card-title>
         <v-card-text>
           <v-container>
             <v-row>
-              <v-col cols="18" sm="9" md="6">
-                <v-text-field
-                  v-model="projectName"
-                  :color="isNameDuplicated ? 'red' : ''"
-                  label="Project name*"
-                  required
-                ></v-text-field>
-                <small
-                  v-if="isNameDuplicated"
-                  :class="isNameDuplicated ? 'warning-duplicate' : ''"
-                >
-                  A project with this name already exists. Pick a different
-                  name.
-                </small>
-              </v-col>
-              <v-col cols="18" sm="9" md="6">
-                <v-text-field
-                  v-model="clientName"
-                  label="Client name*"
-                  required
-                ></v-text-field>
-              </v-col>
+              <v-text-field
+                v-model="projectName"
+                :color="isNameDuplicated ? 'red' : ''"
+                label="Folder name*"
+                required
+              ></v-text-field>
+            </v-row>
+            <v-row>
+              <small
+                v-if="isNameDuplicated"
+                :class="isNameDuplicated ? 'warning-duplicate' : ''"
+              >
+                A folder with this name already exists. Pick a different name.
+              </small>
             </v-row>
           </v-container>
-          <small>*indicates required field</small>
+          <small>* required field</small>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn text @click="emitCancel"> Cancel </v-btn>
           <v-btn
-            color="success"
+            color="#377ADD"
             text
             @click="emitCreate"
             :disabled="isNameDuplicated"
