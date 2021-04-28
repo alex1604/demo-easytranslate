@@ -3,7 +3,7 @@
     <create-folder-modal
       :isVisible="showCreateFolderModal"
       @cancel="toggleCreateFolderModal"
-      @create="createFolder"
+      @create="handleCreateFolder"
     >
       <rounded-button
         text="Create new folder"
@@ -48,6 +48,11 @@ export default class ProjectsOverview extends Vue {
 
   created() {
     this.loadApplication();
+  }
+
+  handleCreateFolder(name: string) {
+    this.createFolder(name);
+    this.toggleCreateFolderModal();
   }
 
   showCreateFolderModal: boolean = false;

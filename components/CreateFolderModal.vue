@@ -17,7 +17,7 @@
           <v-container>
             <v-row>
               <v-text-field
-                v-model="projectName"
+                v-model="folderName"
                 :color="isNameDuplicated ? 'red' : ''"
                 label="Folder name*"
                 required
@@ -60,16 +60,14 @@ export default class CreateFolderModal extends Vue {
 
   @Getter("projectNames") projectNames: string[];
 
-  projectName: string = "";
-  clientName: string = "";
+  folderName: string = "";
 
   get isNameDuplicated(): boolean {
-    return this.projectNames?.includes(this.projectName);
+    return this.projectNames?.includes(this.folderName);
   }
 
   clearForm() {
-    this.projectName = "";
-    this.clientName = "";
+    this.folderName = "";
   }
 
   emitCancel() {
@@ -78,8 +76,8 @@ export default class CreateFolderModal extends Vue {
   }
 
   emitCreate() {
+    this.$emit("create", this.folderName);
     this.clearForm();
-    this.$emit("create", this.projectName);
   }
 }
 </script>

@@ -87,16 +87,22 @@ export const actions = {
         const projects = response?.data
         commit('setActiveFolderProjects', projects)
     },
-    async createFolder({ state, dispatch }: { state: IState, commit, dispatch }, name: string = "") {
-        const data = new FormData();
-        data.append('name', name);
+    async createFolder({ state, dispatch }: { state: IState, dispatch }, name: string) {
+        const data = JSON.stringify({
+            data: {
+                type: 'project-folder',
+                attributes: {
+                    name
+                }
+            }
+        })
 
         const response = await axios.post(process.env.NUXT_ENV_API_URL + 'api/v1/teams/' +
-            process.env.NUXT_ENV_TEAM_NAME + '/folder', {
+            process.env.NUXT_ENV_TEAM_NAME + '/folders', data, {
             headers: {
-                'Authorization': `Bearer ${state.token}`
+                'Authorization': `Bearer ${state.token}`,
+                'Content-Type': 'application/json',
             },
-            data
         })
         if (response?.data) {
             dispatch('getFolders');
