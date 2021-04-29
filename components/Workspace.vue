@@ -16,7 +16,14 @@
         </create-folder-modal>
         <a class="ml-8" @click="toggleShowAllFolders">{{ folderToggleText }}</a>
       </v-row>
+      <div class="loader" v-if="loadingFolders">
+        <v-progress-circular
+          indeterminate
+          color="primary"
+        ></v-progress-circular>
+      </div>
       <v-row
+        v-else
         :class="showAllFolders ? 'show-all' : 'show-less'"
         justify="start"
         align="start"
@@ -32,7 +39,14 @@
           projectToggleText
         }}</a>
       </v-row>
+      <div class="loader" v-if="loadingProjects">
+        <v-progress-circular
+          indeterminate
+          color="primary"
+        ></v-progress-circular>
+      </div>
       <v-row
+        v-else
         :class="showAllProjects ? 'show-all' : 'show-less-projects'"
         justify="start"
         align="start"
@@ -71,6 +85,14 @@ export default class ProjectsOverview extends Vue {
   showAllFolders: boolean = false;
   showAllProjects: boolean = false;
   showCreateFolderModal: boolean = false;
+
+  get loadingFolders() {
+    return this.folders.length === 0;
+  }
+
+  get loadingProjects() {
+    return this.singleProjects.length === 0;
+  }
 
   get folderToggleText(): string {
     return this.showAllFolders ? "View less" : "View all";
@@ -127,5 +149,13 @@ export default class ProjectsOverview extends Vue {
 
 .show-all {
   height: auto;
+}
+
+.loader {
+  height: 12rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 </style>

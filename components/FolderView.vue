@@ -11,12 +11,18 @@
           projectToggleText
         }}</a>
       </v-row>
+      <div class="loader" v-if="loadingProjects">
+        <v-progress-circular
+          indeterminate
+          color="primary"
+        ></v-progress-circular>
+      </div>
       <v-row
+        v-else
         :class="showAllProjects ? 'show-all' : 'show-less-projects'"
         justify="start"
         align="start"
         class="flex-wrap"
-        v-if="!projectsIsEmpty"
       >
         <project
           v-for="project in openFolderProjects"
@@ -49,7 +55,7 @@ export default class FolderView extends Vue {
 
   showAllProjects: boolean = false;
 
-  get projectsIsEmpty(): boolean {
+  get loadingProjects(): boolean {
     return this.openFolderProjects.length === 0;
   }
 
@@ -91,5 +97,13 @@ export default class FolderView extends Vue {
 
 .show-all {
   height: auto;
+}
+
+.loader {
+  height: 30rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 </style>
