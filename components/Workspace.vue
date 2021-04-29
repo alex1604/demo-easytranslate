@@ -79,20 +79,14 @@ export default class ProjectsOverview extends Vue {
   @State("folders") folders: Object[];
   @State("singleProjects") singleProjects: Object[];
   @State("user") user: Object;
+  @State("loadingProjects") loadingProjects: boolean;
+  @State("loadingFolders") loadingFolders: boolean;
   @Action("loadApplication") loadApplication: any;
   @Action("createFolder") createFolder: any;
 
   showAllFolders: boolean = false;
   showAllProjects: boolean = false;
   showCreateFolderModal: boolean = false;
-
-  get loadingFolders() {
-    return this.folders.length === 0;
-  }
-
-  get loadingProjects() {
-    return this.singleProjects.length === 0;
-  }
 
   get folderToggleText(): string {
     return this.showAllFolders ? "View less" : "View all";

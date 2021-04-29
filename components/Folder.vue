@@ -1,11 +1,11 @@
 <template>
   <v-card class="mt-6 mr-4">
-    <NuxtLink
-      style="text-decoration: none; color: inherit"
-      to="/folder"
-      @click.native="handleOpenFolder"
-    >
-      <div class="px-4" justify="start">
+    <div class="px-4" justify="start">
+      <NuxtLink
+        style="text-decoration: none; color: inherit"
+        to="/folder"
+        @click.native="handleOpenFolder"
+      >
         <div class="folder-header">
           <div class="header-name">
             <v-icon size="46" color="#5C98DF">mdi-folder</v-icon>
@@ -30,31 +30,31 @@
           <v-icon size="16" color="gray">mdi-clock-outline</v-icon>
           <small>Created: {{ createdAt }}</small>
         </div>
-        <v-card-actions class="justify-center">
+      </NuxtLink>
+      <v-card-actions class="justify-center">
+        <v-btn text color="#5C98DF" @click="toggleExpandedSection">
+          <v-icon>mdi-chevron-down</v-icon>
+        </v-btn>
+      </v-card-actions>
+    </div>
+
+    <v-expand-transition>
+      <v-card
+        v-if="reveal"
+        class="transition-fast-in-fast-out v-card--reveal"
+        style="height: 100%"
+      >
+        <v-card-text class="expand-card-text">
+          <p>Last updated: {{ updatedAt }}</p>
+          <small>folder_id: {{ folder.id }}</small>
+        </v-card-text>
+        <v-card-actions class="pt-0 justify-center">
           <v-btn text color="#5C98DF" @click="toggleExpandedSection">
-            <v-icon>mdi-chevron-down</v-icon>
+            <v-icon>mdi-chevron-up</v-icon>
           </v-btn>
         </v-card-actions>
-      </div>
-
-      <v-expand-transition>
-        <v-card
-          v-if="reveal"
-          class="transition-fast-in-fast-out v-card--reveal"
-          style="height: 100%"
-        >
-          <v-card-text class="expand-card-text">
-            <p>Last updated: {{ updatedAt }}</p>
-            <small>folder_id: {{ folder.id }}</small>
-          </v-card-text>
-          <v-card-actions class="pt-0 justify-center">
-            <v-btn text color="#5C98DF" @click="toggleExpandedSection">
-              <v-icon>mdi-chevron-up</v-icon>
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-expand-transition>
-    </NuxtLink>
+      </v-card>
+    </v-expand-transition>
   </v-card>
 </template>
 <script lang="ts">
@@ -82,6 +82,10 @@ export default class Folder extends Vue {
   get updatedAt(): string {
     const date = this.folder.attributes.updated_at;
     return moment(date).format("LL");
+  }
+
+  get hasProjects(): boolean {
+    return this.attributes.total_projects > 0;
   }
 
   handleOpenFolder() {

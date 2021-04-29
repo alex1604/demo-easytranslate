@@ -11,7 +11,7 @@
           projectToggleText
         }}</a>
       </v-row>
-      <div class="loader" v-if="loadingProjects">
+      <div class="loader" v-if="loadingFolderProjects">
         <v-progress-circular
           indeterminate
           color="primary"
@@ -52,12 +52,9 @@ import { IProject } from "~/types/IProject";
 export default class FolderView extends Vue {
   @State("openFolder") openFolder: IFolder;
   @State("openFolderProjects") openFolderProjects: IProject[];
+  @State("loadingFolderProjects") loadingFolderProjects: boolean;
 
   showAllProjects: boolean = false;
-
-  get loadingProjects(): boolean {
-    return this.openFolderProjects.length === 0;
-  }
 
   get projectToggleText(): string {
     return this.showAllProjects ? "View less" : "View all";

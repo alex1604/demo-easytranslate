@@ -8,7 +8,10 @@ export const state = (): IState => ({
     singleProjects: [],
     folders: [],
     openFolder: {} as IFolder,
-    openFolderProjects: []
+    openFolderProjects: [],
+    loadingProjects: false,
+    loadingFolders: false,
+    loadingFolderProjects: false
 })
 
 export const getters = {
@@ -35,6 +38,15 @@ export const mutations = {
     },
     setOpenFolderProjects(state: IState, projects: Object[]) {
         state.openFolderProjects = projects;
+    },
+    setLoadingFolders(state: IState, loading: boolean) {
+        state.loadingFolders = loading;
+    },
+    setLoadingProjects(state: IState, loading: boolean) {
+        state.loadingProjects = loading;
+    },
+    setLoadingFolderProjects(state: IState, loading: boolean) {
+        state.loadingFolderProjects = loading;
     }
 }
 
@@ -70,6 +82,7 @@ export const actions = {
         })
         const singleProjects = response?.data?.data
         commit('setSingleProjects', singleProjects)
+        commit('setLoadingProjects', false);
     },
     async getFolders({ state, commit }: { state: IState, commit }) {
         const response = await axios.get(process.env.NUXT_ENV_API_URL + 'api/v1/teams/' +
@@ -80,8 +93,10 @@ export const actions = {
         })
         const folders: IFolder[] = response?.data?.data
         commit('setFolders', folders)
+        commit('setLoadingFolders', false);
     },
     async getFolderProjects({ state, commit }: { state: IState, commit }, folderId: string) {
+        commit("setLoadingFolderProjects", true);
         const response = await axios.get(process.env.NUXT_ENV_API_URL + 'api/v1/teams/' +
             process.env.NUXT_ENV_TEAM_NAME + '/folders/' + folderId, {
             headers: {
@@ -91,6 +106,7 @@ export const actions = {
         console.log(response)
         const projects = response?.data?.included
         commit('setOpenFolderProjects', projects)
+        commit("setLoadingFolderProjects", false);
     },
     async createFolder({ state, dispatch }: { state: IState, dispatch }, name: string) {
         const data = JSON.stringify({
@@ -113,14 +129,16 @@ export const actions = {
             dispatch('getFolders');
         }
     },
-    openFolder({ commit, dispatch }, folder: IFolder) {
-        commit('setOpenFolder', folder);
-        dispatch('getFolderProjects', folder.id);
-    },
-    async loadApplication({ dispatch }) {
+    async loadApplication({ dispatch, commit }) {
+        commit('setLoadingFolders', true);
+        commit('setLoadingProjects', true);
         await dispatch('getToken');
         await dispatch('getUser');
         await dispatch('getFolders');
         await dispatch('getSingleProjects');
+    },
+    openFolder({ commit, dispatch }, folder: IFolder) {
+        commit('setOpenFolder', folder);
+        dispatch('getFolderProjects', folder.id);
     }
 }
