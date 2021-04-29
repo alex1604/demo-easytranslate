@@ -1,28 +1,50 @@
 <template>
   <v-container>
-    <v-row justify="space-between" align="center">
-      <h2 class="section-title">My Folders</h2>
-      <create-folder-modal
-        :isVisible="showCreateFolderModal"
-        @cancel="toggleCreateFolderModal"
-        @create="handleCreateFolder"
+    <section class="my-8">
+      <v-row justify="space-between" align="center">
+        <h2 class="section-title">My Folders</h2>
+        <v-spacer></v-spacer>
+        <create-folder-modal
+          :isVisible="showCreateFolderModal"
+          @cancel="toggleCreateFolderModal"
+          @create="handleCreateFolder"
+        >
+          <v-btn depressed color="primary" @click="toggleCreateFolderModal">
+            <v-icon size="18" class="mr-2" color="white">mdi-plus</v-icon>
+            <span class="button-text">New folder</span>
+          </v-btn>
+        </create-folder-modal>
+        <a class="ml-8" @click="toggleShowAllFolders">{{ folderToggleText }}</a>
+      </v-row>
+      <v-row
+        :class="showAllFolders ? 'show-all' : 'show-less'"
+        justify="start"
+        align="start"
+        class="flex-wrap"
       >
-        <v-btn depressed color="primary" @click="toggleCreateFolderModal">
-          <v-icon size="18" class="mr-2" color="white">mdi-plus</v-icon>
-          <span class="button-text">New folder</span>
-        </v-btn>
-      </create-folder-modal>
-    </v-row>
-    <v-row justify="center" align="center" class="flex-wrap">
-      <folder v-for="folder in folders" :folder="folder" :key="folder.id" />
-    </v-row>
-    <v-row justify="center" align="center" class="flex-wrap">
-      <!-- <project
-        v-for="project in singleProjects"
-        :project="project"
-        :key="project.id"
-      /> -->
-    </v-row>
+        <folder v-for="folder in folders" :folder="folder" :key="folder.id" />
+      </v-row>
+    </section>
+    <section>
+      <v-row justify="space-between" align="center">
+        <h2 class="section-title">My Projects</h2>
+        <a class="ml-8" @click="toggleShowAllProjects">{{
+          projectToggleText
+        }}</a>
+      </v-row>
+      <v-row
+        :class="showAllProjects ? 'show-all' : 'show-less-projects'"
+        justify="start"
+        align="start"
+        class="flex-wrap"
+      >
+        <project
+          v-for="project in singleProjects"
+          :project="project"
+          :key="project.id"
+        />
+      </v-row>
+    </section>
   </v-container>
 </template>
 <script lang="ts">
@@ -46,6 +68,18 @@ export default class ProjectsOverview extends Vue {
   @Action("loadApplication") loadApplication: any;
   @Action("createFolder") createFolder: any;
 
+  showAllFolders: boolean = false;
+  showAllProjects: boolean = false;
+  showCreateFolderModal: boolean = false;
+
+  get folderToggleText(): string {
+    return this.showAllFolders ? "View less" : "View all";
+  }
+
+  get projectToggleText(): string {
+    return this.showAllProjects ? "View less" : "View all";
+  }
+
   created() {
     this.loadApplication();
   }
@@ -55,13 +89,15 @@ export default class ProjectsOverview extends Vue {
     this.toggleCreateFolderModal();
   }
 
-  showCreateFolderModal: boolean = false;
-  showRemovePrompt: boolean = false;
-  showArchivePrompt: boolean = false;
-  activeProjectId: string = "";
-
   toggleCreateFolderModal() {
     this.showCreateFolderModal = !this.showCreateFolderModal;
+  }
+
+  toggleShowAllFolders() {
+    this.showAllFolders = !this.showAllFolders;
+  }
+  toggleShowAllProjects() {
+    this.showAllProjects = !this.showAllProjects;
   }
 }
 </script>
@@ -77,5 +113,19 @@ export default class ProjectsOverview extends Vue {
 
 .section-title {
   font-weight: normal;
+}
+
+.show-less {
+  height: 12rem;
+  overflow: hidden;
+}
+
+.show-less-projects {
+  height: 32rem;
+  overflow: hidden;
+}
+
+.show-all {
+  height: auto;
 }
 </style>

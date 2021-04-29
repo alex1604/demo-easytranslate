@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mt-4 mx-4">
+  <v-card class="mt-6 mr-4">
     <div class="px-4" justify="start">
       <div class="folder-header">
         <v-icon size="46" color="#5C98DF">mdi-folder</v-icon>

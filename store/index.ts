@@ -65,6 +65,7 @@ export const actions = {
             }
         })
         const singleProjects = response?.data?.data
+        console.log(singleProjects)
         commit('setSingleProjects', singleProjects)
     },
     async getFolders({ state, commit }: { state: IState, commit }) {
