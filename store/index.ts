@@ -7,7 +7,8 @@ export const state = (): IState => ({
     user: {},
     singleProjects: [],
     folders: [],
-    activeFolderProjects: []
+    openFolder: {} as IFolder,
+    openFolderProjects: []
 })
 
 export const getters = {
@@ -18,19 +19,22 @@ export const getters = {
 
 export const mutations = {
     setToken(state: IState, token: string) {
-        state.token = token
+        state.token = token;
     },
     setUser(state: IState, user: Object) {
-        state.user = user
+        state.user = user;
     },
     setSingleProjects(state: IState, singleProjects: Object[]) {
-        state.singleProjects = singleProjects
+        state.singleProjects = singleProjects;
     },
     setFolders(state: IState, folders: IFolder[]) {
-        state.folders = folders
+        state.folders = folders;
     },
-    setActiveFolderProjects(state: IState, projects: Object[]) {
-        state.activeFolderProjects = projects
+    setOpenFolder(state: IState, folder: IFolder) {
+        state.openFolder = folder;
+    },
+    setOpenFolderProjects(state: IState, projects: Object[]) {
+        state.openFolderProjects = projects;
     }
 }
 
@@ -65,7 +69,6 @@ export const actions = {
             }
         })
         const singleProjects = response?.data?.data
-        console.log(singleProjects)
         commit('setSingleProjects', singleProjects)
     },
     async getFolders({ state, commit }: { state: IState, commit }) {
@@ -85,8 +88,9 @@ export const actions = {
                 'Authorization': `Bearer ${state.token}`
             }
         })
-        const projects = response?.data
-        commit('setActiveFolderProjects', projects)
+        console.log(response)
+        const projects = response?.data?.included
+        commit('setOpenFolderProjects', projects)
     },
     async createFolder({ state, dispatch }: { state: IState, dispatch }, name: string) {
         const data = JSON.stringify({
@@ -108,6 +112,10 @@ export const actions = {
         if (response?.data) {
             dispatch('getFolders');
         }
+    },
+    openFolder({ commit, dispatch }, folder: IFolder) {
+        commit('setOpenFolder', folder);
+        dispatch('getFolderProjects', folder.id);
     },
     async loadApplication({ dispatch }) {
         await dispatch('getToken');

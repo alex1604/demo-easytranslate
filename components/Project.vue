@@ -1,13 +1,18 @@
 <template>
   <v-card class="mt-6 mr-4">
-    <div class="px-4">
-      <v-icon class="info-button mt-4 mr-4" size="14"
-        >mdi-information-outline</v-icon
-      >
-      <v-card-title>{{ attributes.name }}</v-card-title>
-      <v-card-text>
-        <small class="project-id">{{ project.id }}</small>
-      </v-card-text>
+    <div class="header">
+      <v-tooltip top>
+        <template v-slot:activator="{ on, attrs }">
+          <div class="info-button mt-4">
+            <v-icon size="18" v-bind="attrs" v-on="on"
+              >mdi-information-outline</v-icon
+            >
+          </div>
+        </template>
+        <span>{{ attributes.name }}</span>
+      </v-tooltip>
+      <div class="header-title">{{ attributes.name }}</div>
+      <small class="project-id">{{ project.id }}</small>
     </div>
 
     <v-divider></v-divider>
@@ -34,12 +39,10 @@
       </div>
     </div>
 
-    <v-divider></v-divider>
-
-    <div v-if="!isCompleted" class="progress-footer">
+    <div v-if="!isCompleted" class="footer progress-footer">
       <progress-bar :value="progress" />
     </div>
-    <div v-else class="completed-footer">Translation is ready</div>
+    <div v-else class="footer completed-footer">Translation is ready</div>
   </v-card>
 </template>
 <script lang="ts">
@@ -94,18 +97,13 @@ export default class Folder extends Vue {
 .v-card {
   min-width: 20rem;
   width: 30%;
-  height: 30rem;
+  height: 28rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 
   .project-id {
     color: #1876d1;
-  }
-
-  .info-button {
-    width: 100%;
-    justify-content: flex-end;
   }
 
   .info-row {
@@ -127,18 +125,37 @@ export default class Folder extends Vue {
     }
   }
 
-  .progress-footer {
-    height: 100%;
+  .header {
+    padding: 0 2rem 1rem 2rem;
+    .header-title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 1rem;
+    }
+    .info-button {
+      width: 105%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      cursor: pointer;
+    }
+  }
+
+  .footer {
+    height: 7rem;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid #e0e0e0;
+  }
+  .progress-footer {
     padding: 1rem;
   }
   .completed-footer {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
     color: #1fc499;
     background-color: #e3f5ed;

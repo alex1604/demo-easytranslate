@@ -4,5 +4,6 @@ export interface IState {
     user: Object,
     singleProjects: Object[],
     folders: IFolder[],
-    activeFolderProjects: Object[]
+    openFolder: IFolder,
+    openFolderProjects: Object[]
 }
