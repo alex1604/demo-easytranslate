@@ -85,7 +85,7 @@ export default class FolderView extends Vue {
 }
 
 .show-less-projects {
-  height: 32rem;
+  height: 30rem;
   overflow: hidden;
 }
 

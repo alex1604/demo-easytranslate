@@ -40,6 +40,13 @@
     </div>
 
     <div v-if="!isCompleted" class="footer progress-footer">
+      <div class="tasks">
+        <v-icon class="mr-2" size="16" color="gray"
+          >mdi-format-list-bulleted</v-icon
+        >
+        <span class="completed">{{ attributes.progress.completed_tasks }}</span>
+        / {{ attributes.progress.percent }}
+      </div>
       <progress-bar :value="progress" />
     </div>
     <div v-else class="footer completed-footer">Translation is ready</div>
@@ -154,6 +161,14 @@ export default class Folder extends Vue {
   }
   .progress-footer {
     padding: 1rem;
+    .tasks {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      .completed {
+        color: #1fc499;
+      }
+    }
   }
   .completed-footer {
     align-items: center;

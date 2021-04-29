@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <section class="my-8">
+    <section class="my-4">
       <v-row justify="space-between" align="center">
         <h2 class="section-title">My Folders</h2>
         <v-spacer></v-spacer>
@@ -121,7 +121,7 @@ export default class ProjectsOverview extends Vue {
 }
 
 .show-less-projects {
-  height: 32rem;
+  height: 30rem;
   overflow: hidden;
 }
 
