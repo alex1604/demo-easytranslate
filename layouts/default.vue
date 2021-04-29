@@ -1,7 +1,6 @@
 <template>
-  <v-app dark>
-    <v-app-bar :clipped-left="clipped" fixed app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+  <v-app class="app-container">
+    <v-app-bar class="nav-bar" :clipped-left="clipped" fixed app>
       <v-toolbar-title v-text="title" />
       <v-spacer />
     </v-app-bar>
@@ -28,8 +27,21 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: "My Workspace",
+      title: "MY WORKSPACE",
     };
   },
 };
 </script>
+<style lang="scss" scoped>
+.app-container {
+  background-color: #f8f9fd;
+
+  .nav-bar {
+    background-color: white !important;
+    color: #377add;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    padding: 0 2rem;
+  }
+}
+</style>
