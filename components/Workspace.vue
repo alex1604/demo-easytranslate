@@ -17,10 +17,7 @@
         <a class="ml-8" @click="toggleShowAllFolders">{{ folderToggleText }}</a>
       </v-row>
       <div class="loader" v-if="loadingFolders">
-        <v-progress-circular
-          indeterminate
-          color="primary"
-        ></v-progress-circular>
+        <loader />
       </div>
       <v-row
         v-else
@@ -40,10 +37,7 @@
         }}</a>
       </v-row>
       <div class="loader" v-if="loadingProjects">
-        <v-progress-circular
-          indeterminate
-          color="primary"
-        ></v-progress-circular>
+        <loader />
       </div>
       <v-row
         v-else
@@ -67,12 +61,14 @@ import Folder from "@/components/Folder.vue";
 import Project from "@/components/Project.vue";
 import CreateFolderModal from "@/components/CreateFolderModal.vue";
 import { Action, State } from "vuex-class-decorator";
+import Loader from "@/components/Loader.vue";
 
 @Component({
   components: {
     Folder,
     Project,
     CreateFolderModal,
+    Loader,
   },
 })
 export default class ProjectsOverview extends Vue {

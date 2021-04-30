@@ -12,10 +12,7 @@
         }}</a>
       </v-row>
       <div class="loader" v-if="loadingFolderProjects">
-        <v-progress-circular
-          indeterminate
-          color="primary"
-        ></v-progress-circular>
+        <loader />
       </div>
       <v-row
         v-else
@@ -41,12 +38,14 @@ import CreateFolderModal from "@/components/CreateFolderModal.vue";
 import { State } from "vuex-class-decorator";
 import { IFolder } from "~/types/IFolder";
 import { IProject } from "~/types/IProject";
+import Loader from "@/components/Loader.vue";
 
 @Component({
   components: {
     Folder,
     Project,
     CreateFolderModal,
+    Loader,
   },
 })
 export default class FolderView extends Vue {
