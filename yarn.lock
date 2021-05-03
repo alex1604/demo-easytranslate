@@ -1643,6 +1643,11 @@
   dependencies:
     browserslist "*"
 
+"@types/caseless@*":
+  version "0.12.2"
+  resolved "https://registry.yarnpkg.com/@types/caseless/-/caseless-0.12.2.tgz#f65d3d6389e01eeb458bd54dc8f52b95a9463bc8"
+  integrity sha512-6ckxMjBBD8URvjB6J3NcnuAn5Pkl7t3TizAg+xdlzzQGSPSmBcXf8KoIH0ua/i+tio+ZRUHEXp0HEmvaR4kt0w==
+
 "@types/clean-css@*":
   version "4.2.4"
   resolved "https://registry.yarnpkg.com/@types/clean-css/-/clean-css-4.2.4.tgz#4fe4705c384e6ec9ee8454bc3d49089f38dc038a"
@@ -1710,6 +1715,11 @@
   integrity sha512-ImtIwnIEEMgyE7DK1JduhiDv+8WzfRWb3BPuf6RiBD1ySz05vyDRhGiKvIcuUPxUzMNBRZHN0pB+bWXSX3+t1w==
   dependencies:
     "@types/webpack" "^4"
+
+"@types/formdata@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@types/formdata/-/formdata-0.10.0.tgz#fa0b6745894011005fdbed014168dfb884af49b1"
+  integrity sha512-SmPPLOJkSKuoGw+KjpfzbCAxG0OTC/d+0XKvtuObaV5fmCJ36PN4X4rvDp3QbkbeXTwlQmB6kQm5MNQVmn8ujw==
 
 "@types/graceful-fs@^4.1.2":
   version "4.1.5"
@@ -1842,6 +1852,16 @@
   resolved "https://registry.yarnpkg.com/@types/relateurl/-/relateurl-0.2.28.tgz#6bda7db8653fa62643f5ee69e9f69c11a392e3a6"
   integrity sha1-a9p9uGU/piZD9e5p6facEaOS46Y=
 
+"@types/request@^2.48.5":
+  version "2.48.5"
+  resolved "https://registry.yarnpkg.com/@types/request/-/request-2.48.5.tgz#019b8536b402069f6d11bee1b2c03e7f232937a0"
+  integrity sha512-/LO7xRVnL3DxJ1WkPGDQrp4VTV1reX9RkC85mJ+Qzykj2Bdw+mG15aAfDahc76HtknjzE16SX/Yddn6MxVbmGQ==
+  dependencies:
+    "@types/caseless" "*"
+    "@types/node" "*"
+    "@types/tough-cookie" "*"
+    form-data "^2.5.0"
+
 "@types/sass-loader@8.0.1":
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/@types/sass-loader/-/sass-loader-8.0.1.tgz#628eb80c30cb34ce622056f9b9a1606a8147dcd0"
@@ -1890,6 +1910,11 @@
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/@types/tapable/-/tapable-1.0.7.tgz#545158342f949e8fd3bfd813224971ecddc3fac4"
   integrity sha512-0VBprVqfgFD7Ehb2vd8Lh9TG3jP98gvr8rgehQqzztZNI7o8zS8Ad4jyZneKELphpuE212D8J70LnSNQSyO6bQ==
+
+"@types/tough-cookie@*":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@types/tough-cookie/-/tough-cookie-4.0.0.tgz#fef1904e4668b6e5ecee60c52cc6a078ffa6697d"
+  integrity sha512-I99sngh224D0M7XgW1s120zxCt3VYQ3IQsuw3P3jbq5GG4yc79+ZjyKznyOGIQrflfylLgcfekeZW/vk0yng6A==
 
 "@types/uglify-js@*":
   version "3.13.0"
@@ -5146,6 +5171,15 @@ fork-ts-checker-webpack-plugin@^6.1.1:
     schema-utils "2.7.0"
     semver "^7.3.2"
     tapable "^1.0.0"
+
+form-data@^2.5.0:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/form-data/-/form-data-2.5.1.tgz#f2cbec57b5e59e23716e128fe44d4e5dd23895f4"
+  integrity sha512-m21N3WOmEEURgk6B9GLOE4RuWOFf28Lhh9qGYeNlGq4VDXUlJy2th2slBNU8Gp8EzloYZOibZJ7t5ecIrFSjVA==
+  dependencies:
+    asynckit "^0.4.0"
+    combined-stream "^1.0.6"
+    mime-types "^2.1.12"
 
 form-data@~2.3.2:
   version "2.3.3"
